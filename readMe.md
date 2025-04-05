@@ -11,7 +11,7 @@ A full-featured event management REST API built with **Express**, **TypeScript**
 - ✅ Event creation, update, search
 - ✅ Request/invite/accept event attendance
 - ✅ Reviews on events
-- ✅ Download event data as PDF
+- ✅ **Download event data as PDF***
 - ✅ Swagger API documentation
 - ✅ Type-safe and secure with TypeScript
 - ✅ Protected routes using middleware
@@ -36,7 +36,7 @@ A full-featured event management REST API built with **Express**, **TypeScript**
 
 ```bash
 git clone https://github.com/eni21-star/EVENTS-API
-cd cas-tech-api
+cd CAS-TECH
 ```
 
 ### 2. Install dependencies
