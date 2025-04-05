@@ -1,0 +1,331 @@
+openapi: 3.0.0
+info:
+  title: Event Management API
+  version: 1.0.0
+  description: API for handling events, users, and reviews.
+
+servers:
+  - url: http://localhost:3000/api/v1
+
+paths:
+  /register:
+    post:
+      tags: [Auth]
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUser'
+      responses:
+        '200':
+          description: Registration success
+        '400':
+          description: Bad Request
+        '409':
+          description: Account already exist
+
+  /login:
+    post:
+      tags: [Auth]
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+      responses:
+        '200':
+          description: Login success
+        '401':
+          description: Unauthorized
+
+  /new-event:
+    post:
+      tags: [Events]
+      summary: Create new event
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventData'
+      responses:
+        '200':
+          description: Event created
+
+  /events:
+    get:
+      tags: [Events]
+      summary: Get all events
+      responses:
+        '200':
+          description: List of events
+
+  /event-id:
+    get:
+      tags: [Events]
+      summary: Get event by ID
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Event details
+
+  /event-title:
+    get:
+      tags: [Events]
+      summary: Get event by title
+      parameters:
+        - name: title
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Event details
+
+  /event-keyword:
+    get:
+      tags: [Events]
+      summary: Get events by keyword
+      parameters:
+        - name: keyword
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of matching events
+
+  /event-update:
+    put:
+      tags: [Events]
+      summary: Update event
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventData'
+      responses:
+        '200':
+          description: Event updated
+
+  /event/request-to-attend:
+    post:
+      tags: [Events]
+      summary: Request to attend event
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+      responses:
+        '200':
+          description: Request submitted
+
+  /event/invite:
+    post:
+      tags: [Events]
+      summary: Invite user to event
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                inviteUserId:
+                  type: string
+                eventId:
+                  type: string
+      responses:
+        '200':
+          description: User invited
+
+  /event/accept-request:
+    post:
+      tags: [Events]
+      summary: Accept request to attend
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                inviteUserId:
+                  type: string
+                eventId:
+                  type: string
+      responses:
+        '200':
+          description: Request accepted
+
+  /event/accept-invite:
+    post:
+      tags: [Events]
+      summary: Accept event invite
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventId:
+                  type: string
+      responses:
+        '200':
+          description: Invite accepted
+
+  /review/new:
+    post:
+      tags: [Reviews]
+      summary: Create new review
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                eventId:
+                  type: string
+                review:
+                  type: string
+      responses:
+        '202':
+          description: Review submitted
+
+  /review/delete:
+    delete:
+      tags: [Reviews]
+      summary: Delete review
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: reviewId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '202':
+          description: Review deleted
+
+  /user/attended-events:
+    get:
+      tags: [Users]
+      summary: Get user's attended events
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of attended events
+
+  /user/invited-events:
+    get:
+      tags: [Users]
+      summary: Get user's invited events
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of invited events
+
+  /user/download-event-data:
+    get:
+      tags: [Users]
+      summary: Download event data as PDF
+      parameters:
+        - name: eventId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: PDF File
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+
+components:
+  schemas:
+    RegisterUser:
+      type: object
+      required: [email, password, name]
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+
+    LoginUser:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+
+    EventData:
+      type: object
+      required: [title, description, date]
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date-time
+        location:
+          type: string
+        contactPhone:
+          type: string
+        privacyType:
+          type: string
+        eventTime: 
+          type: string
+        capacity: 
+          type: number
+        
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
