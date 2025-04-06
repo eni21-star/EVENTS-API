@@ -36,7 +36,7 @@ class UserService extends UserDataSource {
   async downloadEventDataService(eventId: string){
     try {
      
-      const getEvent = await new EventDatasource().getEventById("7f5f71f5-1bdb-4b9c-b925-e8399c571f5f")
+      const getEvent = await new EventDatasource().getEventById(eventId)
       if(!getEvent) throw new NotFoundError('event does not exist')
 
       const pdfDoc = await PDFDocument.create();
