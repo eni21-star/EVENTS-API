@@ -10,7 +10,7 @@ host: 'localhost',
 username: 'postgres',
 password: '1234',
 database: 'postgres',
-synchronize: true, // Automatically creates tables based on entities (use only in development)
+synchronize: true, 
 logging: false,
 entities: [User, Events, Reviews],
 })
