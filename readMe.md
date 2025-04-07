@@ -32,7 +32,7 @@ Users can post three types of events: **public**, **private**, or **protected**.
 - **Database**: PostgreSQL (via TypeORM)
 - **Auth**: JWT
 - **Docs**: Swagger (YAML + swagger-ui-express)
-- **Validation**: Custom validators
+- **Validation**: Joi Custom validators
 - **Dev Tools**: tsx, Yarn
 
 ---
@@ -88,6 +88,9 @@ You can view and test all routes there.
 ```
 src/
 ├── controllers/        # Route controllers
+├── Entities/           # Databae Tables
+├── Config/		# Database and env configuration
+├── Darasource/		# Database logic layer  
 ├── services/           # Business logic layer
 ├── routes/             # Express route definitions
 ├── validators/         # Input validation functions
