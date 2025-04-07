@@ -17,7 +17,7 @@ import helmet from "helmet";
 
 const app: Application = express()
 //documentation
-const swaggerPath = path.resolve("src/docs/swagger.yaml"); // adjust if file is inside `src/docs`
+const swaggerPath = path.resolve("src/docs/swagger.yaml"); 
 const swaggerFile = fs.readFileSync(swaggerPath, "utf8");
 const swaggerDocument = YAML.parse(swaggerFile);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
