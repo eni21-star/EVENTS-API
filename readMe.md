@@ -3,6 +3,13 @@
 
 A full-featured event management REST API built with **Express**, **TypeScript**, **PostgreSQL**, and **Swagger UI** for API documentation. Includes authentication, event management, user invitations, and reviews.
 
+Users can post three types of events: **public**, **private**, or **protected**.
+	•	For public events, anyone can attend as long as the event is not full.
+	•	For protected events, users must send an invitation request to attend.
+	•	For private events, only the event owner can send out invitations.
+
+**Users can also view and download event details as PDF files to show proof of attendance.**
+
 ---
 
 ## 🚀 Features
