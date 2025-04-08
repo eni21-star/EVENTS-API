@@ -114,8 +114,6 @@ src/
 ---
 
 ## ✍️ Author
-
-**Your Name**  
 📧 eniolaolagbegi@gmail.com
 
 ---
