@@ -1,5 +1,5 @@
 
-# CAS-TECH Event API
+Event API
 
 A full-featured event management REST API built with **Express**, **TypeScript**, **PostgreSQL**, and **Swagger UI** for API documentation. Includes authentication, event management, user invitations, and reviews.
 
